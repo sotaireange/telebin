@@ -1,0 +1,42 @@
+version: "3.9"
+
+
+services:
+  redis:
+    container_name: redis
+    image: redis:5.0.4-alpine
+    user: root
+    command:
+      - redis-server
+      - '--loglevel debug'
+      - '--databases 2'
+      - '--save 60 1000'
+      - '--save 300 10'
+      - '--dbfilename dump.rdb'
+      - '--requirepass $REDIS_PASSWORD'
+      - '--maxmemory 1024mb'
+      - '--maxmemory-policy allkeys-lru'
+      - '--appendonly no'
+    volumes:
+      - 'redis:/data'
+    env_file:
+      - .env
+    restart: on-failure
+    ports:
+      - "6379:6379"
+
+
+  bot:
+    build: .
+    command: python main.py
+    user: root
+    env_file:
+      - .env
+    restart: always
+    depends_on:
+      - redis
+
+
+volumes:
+  redis:
+
