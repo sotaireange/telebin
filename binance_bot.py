@@ -41,8 +41,8 @@ class AlgoBot():
         self.prc_step = 0.0
         self.key_value = int(self.data['key_value'])
         self.atr_period=int(self.data['atr'])
-        self.tp_percent=int(self.data['tp'])
-        self.sl_percent=int(self.data['sl'])
+        self.tp=int(self.data['tp'])
+        self.sl=int(self.data['sl'])
         self.usd=float(self.data['bal'])
 
 
