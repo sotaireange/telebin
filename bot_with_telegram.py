@@ -40,7 +40,7 @@ class AlgoBot():
         self.coin = self.data["coin"]
         self.time_frame = int(self.data["time_frame"])
         self.leverage = int(self.data["leverage"])
-        self.config_testnet=True
+        self.config_testnet=False
         self.qty_step = 0.0
         self.prc_step = 0.0
         self.key_value = int(self.data['key_value'])
@@ -292,7 +292,7 @@ class AlgoBot():
                 await asyncio.sleep(10)
                 state_cur= await state.get_state()
             except Exception as e:
-                logging.exception(f"Ошибка {self.coin}\n 252 LINE")
+                logging.error(f"Ошибка {self.coin}\n 252 LINE")
 
 
 
