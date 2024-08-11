@@ -39,7 +39,7 @@ class AlgoBot():
         self.coin = self.data["coin"]
         self.time_frame = f"{self.data["time_frame"]}m"
         self.leverage = int(self.data["leverage"])
-        self.config_testnet=True
+        self.config_testnet=False
         self.qty_step = 0.0
         self.prc_step = 0.0
         self.key_value = int(self.data['key_value'])
