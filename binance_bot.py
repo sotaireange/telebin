@@ -31,9 +31,6 @@ class AlgoBot():
 
 
     def config(self):
-        with open('config_for_binance.json', 'r') as f:
-            config = json.load(f)
-
         self.API_KEY = self.data["api"]
         self.API_SECRET_KEY = self.data["secret"]
         self.coin = self.data["coin"]
