@@ -90,7 +90,7 @@ class AlgoBot():
             (src < df['xATRTrailingStop']) & df['below']
         ]
         df['signal']=np.select(conditions, [1,-1],default=0)
-        return df['signal'].iloc[-1]
+        return df['signal'].iloc[-2]
 
     def round_step_size(self, quantity: Union[float, Decimal], step_size: Union[float, Decimal]) -> float:
         quantity = Decimal(str(quantity))
@@ -188,7 +188,7 @@ class AlgoBot():
             )
             return order
         except Exception as e:
-            logging.exception("Не удалось исполнить ордер")
+            logging.error("Не удалось исполнить ордер")
             time.sleep(2)
             return False
 
