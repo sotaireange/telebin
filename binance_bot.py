@@ -274,23 +274,19 @@ class AlgoBot():
                 if last_date != df.index[-1]:
                     sgnl = self.signal(df)
                     if sgnl == 1 and side!=1:
-                        if self.position()['positionSide'] == "LONG":
-                            continue
                         flag=self.open_order(buy=True)
                         if flag:
-                            await message.answer(text=f"Long {self.coin} По цене {df['Close'][-1]} \nВремя: {self.last_date}")
+                            await message.answer(text=f"Long {self.coin} По цене {df['Close'][-1]} \nВремя: {df.index[-1]}")
                             side=1
 
                     elif sgnl == -1 and side !=-1:
-                        if self.position()['positionSide'] == "SHORT":
-                            continue
                         flag=self.open_order(buy=False)
                         if flag:
-                            await message.answer(text=(f"Short {self.coin} по цене {df['Close'][-1]} \nВремя: {self.last_date}"))
+                            await message.answer(text=(f"Short {self.coin} по цене {df['Close'][-1]} \nВремя: {df.index[-1]}"))
                             side=-1
                     last_date = df.index[-1]
-
+                state_cur=await state.get_state()
                 await asyncio.sleep(10)
             except Exception as e:
-                logging.error(f"Ошибка {self.coin}\n 252 LINE")
+                logging.error(f"Ошибка {self.coin}\n 252 LINE {e}")
 
