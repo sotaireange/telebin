@@ -105,8 +105,8 @@ class AlgoBot():
                 tp_price = self.round_step_size(price * (1 - float(self.tp) / 100), self.prc_step)
                 sl_price = self.round_step_size(price * (1 + float(self.sl) / 100), self.prc_step)
 
-            if self.tp_percent==0: tp_price=0
-            if self.sl_percent==0: sl_price=0
+            if self.tp==0: tp_price=0
+            if self.sl==0: sl_price=0
 
             return {'tp_price': tp_price,
                     'sl_price': sl_price}
