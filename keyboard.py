@@ -16,6 +16,7 @@ def main_keyboard():
     markup.row(types.InlineKeyboardButton(text='Leverage', callback_data='leverage'))
     markup.row(types.InlineKeyboardButton(text='Тейк-Профит',callback_data='tp'))
     markup.row(types.InlineKeyboardButton(text='Стоп-Лосс',callback_data='sl'))
+    markup.row(types.InlineKeyboardButton(text='Heikin Ashi вкл/выкл', callback_data='hiken_ashi'))
 
     return markup.as_markup()
 

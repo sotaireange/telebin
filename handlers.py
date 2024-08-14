@@ -31,6 +31,11 @@ async def get_text(state:FSMContext):
     time_frame=data.get('time_frame',"---")
     tp=data.get('tp','---')
     sl=data.get('sl','---')
+    ha=data.get('hiken_ashi',0)
+    if ha:
+        hiken_ashi="Включен"
+    else:
+        hiken_ashi="Выключен"
 
     text=(f'API - <{api}>\n'
           f'Secret - <{secret}>\n'
@@ -41,7 +46,8 @@ async def get_text(state:FSMContext):
           f'Balance - <{bal}>\n'
           f'Leverage - <{leverage}>\n'
           f'Тейк Профит - <{tp}>\n'
-          f'Стоп Лосс - <{sl}>')
+          f'Стоп Лосс - <{sl}>\n'
+          f'Heikin Ashi - {hiken_ashi}\n')
 
     return text
 
@@ -70,6 +76,18 @@ async def set_data(message: Message, state: FSMContext):
     text=f'Данные успешно сохранены <{key}> - <{text}>\n' + text_full
     await message.answer(text=text,reply_markup=main_keyboard())
     await state.set_state(Main.UNRUN)
+
+@router.callback_query(lambda call: call.data=="hiken_ashi")
+async def hiken_ashi(call: CallbackQuery, state: FSMContext):
+    data= await state.get_data()
+    ha=data.get('hiken_ashi',0)
+    if ha:
+        ha=0
+    else:
+        ha=1
+    await state.update_data({"hiken_ashi":ha})
+    text= await get_text(state)
+    await call.message.edit_text(text=text,reply_markup=main_keyboard())
 
 @router.callback_query(lambda call: call.data=="run")
 async def run(call: CallbackQuery, state: FSMContext):

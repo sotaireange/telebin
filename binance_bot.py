@@ -41,10 +41,10 @@ class AlgoBot():
         self.prc_step = 0.0
         self.key_value = int(self.data['key_value'])
         self.atr_period=int(self.data['atr'])
-        self.tp=int(self.data['tp'])
-        self.sl=int(self.data['sl'])
+        self.tp=float(self.data['tp'])
+        self.sl=float(self.data['sl'])
         self.usd=float(self.data['bal'])
-
+        self.hiken_ashi=int(self.data.get('hiken_ashi',0))
 
     def heikin_ashi(self, df):
         ha_df = df.copy()
@@ -269,6 +269,8 @@ class AlgoBot():
         while state_cur=='Main:RUN':
             try:
                 df = self.get_data()
+                if self.hiken_ashi:
+                    df=self.heikin_ashi(df)
                 if df.empty:
                     continue
                 if last_date != df.index[-1]:
